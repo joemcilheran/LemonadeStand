@@ -68,4 +68,7 @@ class Inventory:
         iceTotal = (int(iceTotal) - int(icePerCup))
         
     def adjust_inventory(self,recipe):
-        adjust_lemons_from_purchase
+        lemonTotal = self.adjust_lemons_from_purchase(recipe)
+        sugarTotal = self.adjust_sugar_from_purchase(recipe)
+        cupTotal = self.adjust_cups_from_purchase(recipe)
+        iceTotal = self.adjust_ice_from_purchase(recipe)

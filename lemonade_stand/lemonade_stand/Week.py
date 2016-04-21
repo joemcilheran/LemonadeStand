@@ -24,14 +24,27 @@ class Week:
    
     def run_week(self):        
         while dayCounter < 7:
+            dayCounter = self.add_dayCounter()
             day = Day.Day()
-            day = day.run_day(week,
+            day.run_day(week)
             
                    
-    def find_popularity(self):
+    def find_popularity(self,day):
         if servedCustomers == 0:
             popularity = popularity
         else:
             popularity = Decimal(satisfiedCustomers / servedCustomers)
         return popularity
+        
+    def add_to_servedCustomers(self,day):
+        servedCustomers = (servedCustomers + dailyServed)
+        return servedCustomers
+        
+    def add_to_satisfiedCustomers(self,day):
+        satisfiedCustomers = (satisfiedCustomers + dailySatisfied)
+        return satisfiedCustomers
+        
+    def add_to_dayCounter(self):
+        dayCounter = dayCounter + 1
+        return dayCounter
           

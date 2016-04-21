@@ -45,6 +45,6 @@ class Weather:
         print("temperatureFactor" + str(temperatureFactor))
         return temperatureFactor
         
-    
+    def 
     
  

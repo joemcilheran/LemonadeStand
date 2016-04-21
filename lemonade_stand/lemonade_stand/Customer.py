@@ -111,8 +111,8 @@ class Customer:
                return True
                
     def buy_lemonade(self,dailyServed,bankTotal,price,lemonTotal,lemonsPerCup,sugarTotal,sugarPerCup,iceTotal,icePerCup,cupTotal):
-        dailyServed = dailyServed + 1 
-        bankTotal = bank.deposit(bankTotal,price)
+        
+        
         print(bankTotal)
         
         
