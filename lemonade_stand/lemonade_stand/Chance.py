@@ -5,7 +5,6 @@ import Customer
 import Inventory
 import Bank
 import Recipe
-import Purchases
 from decimal import *
 getcontext().prec = 4
 import Week

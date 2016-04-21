@@ -5,7 +5,6 @@ import Chance
 import Inventory
 import Bank
 import Recipe
-import Purchases
 from decimal import *
 getcontext().prec = 4
 import Week
@@ -14,37 +13,57 @@ class Weather:
 
     def __init__(self):
         
-        weatherForcast = weatherForcast
-        temperatureForecast = temperatureForecast
+        weatherForecast = self.get_weather()
+        temperatureForecast = self.get_temperature()
+        weatherFactor = self.get_weather_factor()
+        temperatureFactor = self.get_temperature_factor()
+        temperatureDifferential = self.get_temperatureDifferential()
+        temperatureVariation = self.get_temperatureVariation()
     
     
     def get_weather(self):
         weatherList = ("Sunny", "Hazy", "Cloudy", "Rainy")
         weatherForecast = random.choice(weatherList)
-        return weatherForecast
         print(weatherForecast)
+        return weatherForecast
         
     def get_temperature(self):
         temperatureForecast = random.randint(50,100)
         return temperatureForecast
+       
         
     def get_weather_factor(self):
                
         if weatherForecast == "Sunny":
-            return 1.00 
+            weathFactor = 1.00 
         elif weatherForecast == "Hazy":
-            return 0.75
+            weathFactor =  0.75
         elif weatherForecast == "Cloudy":
-            return 0.50
+            weathFactor =  0.50
         else:
-            return 0.25
+            weathFactor = 0.25
+        print("weathFactor" + str(weatherFactor))
+        return weatherForecast
         
         
-    def get_temperature_factor(self,temperature):
+    def get_temperature_factor(self):
         temperatureFactor = Decimal(temperature) / Decimal(100)
-        print("temperatureFactor" + str(temperatureFactor))
         return temperatureFactor
+        print("temperatureFactor" + str(temperatureFactor))
         
-    def 
+        
+    def get_forecast(self):
+        self.get_weather()
+        self.get_temperature()
+        print("Forecast: " + str(temperatureForecast) + " degrees and " + weatherForecast)
     
+    def get_temperatureVariation(self):
+        temperatureVariation = random.randint(-10,10)
+        return temperatureVariation
+        print(str(temperatureVariation) + "variation")
+        
+    def get_temperatureDifferential(self):
+        temperatureDifferential = abs(temperatureForecast - 75)
+        return temperatureDifferential
+        print(str(temperatureDifferential) + "temperatureDifferential")
  

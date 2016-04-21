@@ -6,7 +6,6 @@ import Chance
 import Inventory
 import Bank
 import Recipe
-import Purchases
 from decimal import *
 getcontext().prec = 4
 import Week
@@ -14,39 +13,48 @@ import Week
 class Customer:
 
     def __init__(self):
-        pass
+        
+        chanceOfBuying = self.find_chance_of_buying(weather,week,price,chance)
+        customerSatisfaction = self.find_customer_satisfaction()
+        tasteSatisfaction = self.find_taste_satisfaction(recipe,chance)
+        strenghthSatisfaction = self.find_strenghth_satisfaction(recipe,chance)
+        temperatureSatisfaction = self.find_temperature_satisfaction(weather,recipe,chance)
+        satisfactionSet = (tasteSatisfaction,strenghthSatisfaction,temperatureSatisfaction)
     
-    def find_chance_of_buying(self,weatherFactor,temperatureFactor,popularity,price,chance):
+    def find_chance_of_buying(self,weather,week,price,chance):
         if int(popularity) == 0:
             impulse = ((Decimal(weatherFactor) * Decimal(temperatureFactor)) * Decimal(100)) - Decimal(price)
         else:
             impulse = ((Decimal(weatherFactor) * Decimal(temperatureFactor) * Decimal(popularity)) * Decimal(100)) - Decimal(price)
        
         if impulse >= 75:
-            return True
+            chanceOfBuying = True
+            return chanceOfBuying
         elif impulse < 75 and impulse > 35:
-            buy = chance.get_fifty_percent_chance()
-            return buy
+            chanceOfBuying = chance.get_fifty_percent_chance()
+            return chanceOfBuying
         elif impulse <36 and impulse > 5:
-            buy = chance.get_twenty_five_percent_chance()
-            return buy
+            chanceOfBuying = chance.get_twenty_five_percent_chance()
+            return chanceOfBuying
         else:
-            return False
+            chanceOfBuying = False
+            return chanceOfBuying
             
-    def find_customer_satisfaction(self,lemonsPerPitcher,sugarPerPitcher,icePerCup,tempForecast,chance):
-        tastsat = self.find_taste_satisfaction(lemonsPerPitcher,sugarPerPitcher,chance)
-        strensat = self.find_strength_satisfaction(lemonsPerPitcher,sugarPerPitcher,icePerCup,chance)
-        tempsat = self.find_temperature_satisfaction(tempForecast,icePerCup,chance)
-        satisfactionSet = (tastsat,strensat,tempsat)
+    def find_customer_satisfaction(self):
+        self.find_taste_satisfaction(recipe,chance)
+        self.find_strength_satisfaction(recipe,chance)
+        self.find_temperature_satisfaction(weather,recipe,chance)       
         print(satisfactionSet)
         if satisfactionSet.count(True) > 1:
-            return True
+            customerSatisfaction = True
+            return customerSatisfaction
         else:
-            return False
+            customerSatisfaction = False
+            return customerSatisfaction
         
         
         
-    def find_taste_satisfaction(self,lemonsPerPitcher,sugarPerPitcher,chance):
+    def find_taste_satisfaction(self,recipe,chance):
         taste = abs(int(lemonsPerPitcher) - int(sugarPerPitcher))
         if taste == 0:
             tasteSatisfaction = chance.get_seventy_five_percent_chance()
@@ -58,9 +66,10 @@ class Customer:
             tasteSatisfaction = chance.get_twenty_five_percent_chance()
             return tasteSatisfaction
         else:
-            return False
+            tasteSatisfaction = False
+            return tasteSatisfaction
             
-    def find_strength_satisfaction(self,lemonsPerPitcher,sugarPerPitcher,icePerCup,chance):
+    def find_strength_satisfaction(self,recipe,chance):
         strenghth = (int(lemonsPerPitcher) + int(sugarPerPitcher))
         if strenghth == 8:
             strenghthSatisfaction = chance.get_seventy_five_percent_chance()
@@ -72,9 +81,10 @@ class Customer:
             strenghthSatisfaction = chance.get_twenty_five_percent_chance()
             return strenghthSatisfaction
         else:
-            return False
+            strenghthSatisfaction = False
+            return strenghthSatisfaction
             
-    def find_temperature_satisfaction(self,temperature,icePerCup,chance):
+    def find_temperature_satisfaction(self,weather,recipe,chance):
         temperature = int(temperature)
         icePerCup = int(icePerCup)
         if temperature < 70:
@@ -85,7 +95,8 @@ class Customer:
                 temperatureSatisfaction = chance.get_fifty_percent_chance()
                 return temperatureSatisfaction
             else:
-                return False
+                temperatureSatisfaction = False
+                return temperatureSatisfaction
                 
         elif temperature >= 70 and temperature < 90:
             if icePerCup < 2:
@@ -98,7 +109,8 @@ class Customer:
                temperatureSatisfaction = chance.get_twenty_five_percent_chance()
                return temperatureSatisfaction
             else:
-               return False
+               temperatureSatisfaction = False
+               return temperatureSatisfaction
                
         else:
             if icePerCup < 3:
@@ -108,13 +120,18 @@ class Customer:
                temperatureSatisfaction = chance.get_fifty_percent_chance()
                return temperatureSatisfaction
             else:
-               return True
+               temperatureSatisfaction = False
+               return temperatureSatisfaction
                
-    def buy_lemonade(self,dailyServed,bankTotal,price,lemonTotal,lemonsPerCup,sugarTotal,sugarPerCup,iceTotal,icePerCup,cupTotal):
-        
-        
-        print(bankTotal)
-        
+    def run_customer(self):
+        customer.find_chance_of_buying(weather,week,price,chance)
+        print(chanceOfBuying)
+        while chanceOfBuying == True:                
+            bank.deposit(bank,day)
+            day.add_to_dailyServed(day)
+            inventory.adjust_inventory(inventory)
+            self.find_customer_satisfaction(recipe,weather,chance)
+            day.add_to_dailySatisfied(day) 
         
         
                        

@@ -5,7 +5,6 @@ import Customer
 import Chance
 import Inventory
 import Recipe
-import Purchases
 from decimal import *
 getcontext().prec = 4
 import Week
@@ -16,11 +15,16 @@ class Bank:
         bankTotal = 20
     
     
-    def withdraw(self,bankTotal,cost):
+    def withdraw(self,player):
         bankTotal = (Decimal(bankTotal) - Decimal(cost))
+        print(bankTotal)
         return bankTotal
         
-    def deposit(self,bankTotal,price):
+    def deposit(self,day):
         bankTotal = (Decimal(banktotal) + Decimal(Decimal(price) / Decimal(100)))
         print(bankTotal)
         return bankTotal
+       
+        
+    def display_bankTotal():
+        print("Bank total: $" + str(bankTotal))

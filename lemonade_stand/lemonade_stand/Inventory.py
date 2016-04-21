@@ -5,7 +5,6 @@ import Customer
 import Chance
 import Bank
 import Recipe
-import Purchases
 from decimal import *
 getcontext().prec = 4
 import Week
@@ -26,49 +25,57 @@ class Inventory:
         print(str(iceTotal) + " cubes of ice")
         print(str(cupTotal) + " cups")
         
-    def get_lemons(self):
-        LemonTotal = (lemonTotal + newLemons)
+    def get_lemons(self,player):
+        lemons = (int(cost) * 10)
+        LemonTotal = (lemonTotal + lemons)
         return LemonTotal
         
-    def get_sugar(self):
-        SugarTotal = (sugarTotal + newSugar)
+    def get_sugar(self,player):
+        sugar = (int(cost) * 10)
+        SugarTotal = (sugarTotal + sugar)
         return SugarTotal
         
-    def get_cups(self,cups):
+    def get_cups(self,player):
+        cups = (int(cost) * 100)
         CupTotal = (cupTotal + cups)
         return CupTotal
     
-    def get_ice(self,ice):
+    def get_ice(self,player):
+        ice = (int(cost) * 150)
         IceTotal = (iceTotal + ice)
         return IceTotal    
         
-    def use_lemons(self,lemons):
-        LemonTotal = (Decimal(lemonTotal) - Decimal(lemons))
-        return LemonTotal
-        
-    def use_sugar(self,sugar):
-        SugarTotal = (Decimal(sugarTotal) - Decimal(sugar))
-        return SugarTotal
-        
-    def use_cups(self):
-        CupTotal = (cupTotal - cupsUsed)
-        return CupTotal
-        
-    def use_ice(self):
-        IceTotal = (iceTotal - iceUsed)
-        return IceTotal
         
     def adjust_lemons_from_purchase(self,recipe):
-        lemonTotal = (Decimal(lemonTotal) - Decimal(lemonsPerCup))      
+        lemonTotal = (Decimal(lemonTotal) - Decimal(lemonsPerCup))  
+        return lemonTotal   
+        
     def adjust_sugar_from_purchase(self,recipe):
         sugarTotal = (Decimal(sugarTotal) - Decimal(sugarPerCup))
+        return sugarTotal
+        
     def adjust_cups_from_purchase(self,recipe):
         cupTotal = (cupTotal - 1)
+        return cupTotal
+        
     def adjust_ice_from_purchase(self,recipe):
         iceTotal = (int(iceTotal) - int(icePerCup))
+        return iceTotal
         
-    def adjust_inventory(self,recipe):
-        lemonTotal = self.adjust_lemons_from_purchase(recipe)
-        sugarTotal = self.adjust_sugar_from_purchase(recipe)
-        cupTotal = self.adjust_cups_from_purchase(recipe)
-        iceTotal = self.adjust_ice_from_purchase(recipe)
+    def adjust_inventory(self):
+        self.adjust_lemons_from_purchase(recipe)
+        self.adjust_sugar_from_purchase(recipe)
+        self.adjust_cups_from_purchase(recipe)
+        self.adjust_ice_from_purchase(recipe)
+        
+    def sell_out_ice(self,recipe):
+        if icePerCup != 0 and iceTotal < icePerCup:
+           return True
+        else: 
+           return False
+           
+    def sell_out_other_items(self,recipe):
+        if lemonTotal < lemonsPerCup or sugarTotal < sugarPerCup or cupTotal == 0:
+            return True
+        else: 
+            return False
