@@ -16,8 +16,8 @@ class Recipe:
         lemonsPerPitcher = self.add_lemons()
         sugarPerPitcher = self.add_sugar()
         icePerCup = self.add_ice()
-        lemonsPerCup = self.find_lemons_per_cup()
-        sugarPerCup = self.find_sugar_per_cup()
+        lemonsPerCup = self.find_lemons_per_cup(lemonsPerPitcher)
+        sugarPerCup = self.find_sugar_per_cup(sugarPerPitcher)
         
     
     def get_recipe(self):
@@ -39,10 +39,10 @@ class Recipe:
         icePerCup = input("How many ice cubes in each cup? \n")
         return icePerCup
         
-    def find_lemons_per_cup(self):
+    def find_lemons_per_cup(self, lemonsPerPitcher):
         lemonsPerCup = (Decimal(lemonsPerPitcher) / Decimal(10))
         return lemonsPerCup
         
-    def find_sugar_per_cup(self):
+    def find_sugar_per_cup(self, sugarPerPitcher):
         sugarPerCup = (Decimal(sugarPerPitcher) / Decimal(10))
         return sugarPerCup

@@ -26,5 +26,5 @@ class Bank:
         return bankTotal
        
         
-    def display_bankTotal():
+    def display_bankTotal(bankTotal):
         print("Bank total: $" + str(bankTotal))

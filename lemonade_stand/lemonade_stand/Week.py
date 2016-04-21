@@ -24,9 +24,10 @@ class Week:
     def run_week(self):  
         dayCounter = 0
         while dayCounter < 7:
-            dayCounter = self.add_to_dayCounter()
+            dayCounter = self.add_to_dayCounter(dayCounter)
+            print ("Day Counter: " + str(dayCounter))
             day = Day.Day()
-            day.run_day(week)
+            day.run_day()
             
                    
     def find_popularity(self,day):
@@ -46,8 +47,7 @@ class Week:
         print(str(satisfiedCustomers) + "satisfiedCustomers")
         return satisfiedCustomers
         
-    def add_to_dayCounter(self):
-        dayCounter = 0
+    def add_to_dayCounter(self, dayCounter):
         dayCounter = dayCounter + 1
         return dayCounter
         

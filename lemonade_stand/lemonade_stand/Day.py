@@ -21,7 +21,7 @@ class Day:
         price = self.set_price()
         potentialCustomers = find_potential_customers(weather)
         
-    def run_day(self):                
+    def run_day(self):     
         week.display_day()
         self.weather.get_forecast()        
         bank.display_bankTotal()

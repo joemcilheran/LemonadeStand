@@ -15,9 +15,9 @@ class Weather:
         
         weatherForecast = self.get_weather()
         temperatureForecast = self.get_temperature()
-        weatherFactor = self.get_weather_factor()
-        temperatureFactor = self.get_temperature_factor()
-        temperatureDifferential = self.get_temperatureDifferential()
+        weatherFactor = self.get_weather_factor(weatherForecast)
+        temperatureFactor = self.get_temperature_factor(temperatureForecast)
+        temperatureDifferential = self.get_temperatureDifferential(temperatureForecast)
         temperatureVariation = self.get_temperatureVariation()
     
     
@@ -32,22 +32,21 @@ class Weather:
         return temperatureForecast
        
         
-    def get_weather_factor(self):
-               
+    def get_weather_factor(self,weatherForecast):               
         if weatherForecast == "Sunny":
-            weathFactor = 1.00 
+            weatherFactor = 1.00 
         elif weatherForecast == "Hazy":
-            weathFactor =  0.75
+            weatherFactor =  0.75
         elif weatherForecast == "Cloudy":
-            weathFactor =  0.50
+            weatherFactor =  0.50
         else:
-            weathFactor = 0.25
-        print("weathFactor" + str(weatherFactor))
-        return weatherForecast
+            weatherFactor = 0.25
+        print("weatherFactor" + str(weatherFactor))
+        return weatherFactor
         
         
-    def get_temperature_factor(self):
-        temperatureFactor = Decimal(temperature) / Decimal(100)
+    def get_temperature_factor(self,temperatureForecast):
+        temperatureFactor = Decimal(temperatureForecast) / Decimal(100)
         return temperatureFactor
         print("temperatureFactor" + str(temperatureFactor))
         
@@ -62,7 +61,7 @@ class Weather:
         return temperatureVariation
         print(str(temperatureVariation) + "variation")
         
-    def get_temperatureDifferential(self):
+    def get_temperatureDifferential(self, temperatureForecast):
         temperatureDifferential = abs(temperatureForecast - 75)
         return temperatureDifferential
         print(str(temperatureDifferential) + "temperatureDifferential")
