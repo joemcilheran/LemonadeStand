@@ -1,3 +1,4 @@
+import time
 import random
 import Day
 import Weather
@@ -21,24 +22,20 @@ class Week:
         self.popularity = 0
         self.cost = 0
    
-    def run_week(self):  
+    def run_week(self):
+        self.begin_week()    
         self.dayCounter = 0
         while self.dayCounter < 7:
             self.add_to_dayCounter()
             self.display_day()
             day = Day.Day()
-            day.weather.get_weather()
-            day.weather.get_temperature()        
-            day.weather.get_forecast()                
-            self.bank.display_bankTotal()
-            self.inventory.display_inventory()         
-            self.purchase_items()        
-            day.recipe.get_recipe()        
-            day.set_price()
-            self.inventory.display_inventory()
+            day.start_day(self)
+            time.sleep(1)
+            #self.inventory.display_inventory()
             day.run_day(self)
-            self.end_day(day)
-            
+            day.end_day(self)
+        if self.dayCounter == 7:            
+           self.end_of_week()    
             
                    
     def find_popularity(self):
@@ -108,25 +105,44 @@ class Week:
         self.purchase_sugar()
         self.purchase_ice()
         
-    def end_day(self,day):
-        self.add_to_satisfiedCustomers(day)        
-        self.add_to_servedCustomers(day)        
-        self.find_popularity()
-        print("You served " + str(day.dailyServed) + " customers out of " + str(day.potentialCustomers) + " potential customers.")
-        print(str(day.dailySatisfied) + " of whom were satisfied.")
-        print("You now have $" + str(self.bank.bankTotal))
-        print("and your popularity is " + str(self.popularity * 100) + " percent") 
-        self.inventory.reset()
+    def end_of_week(self):
+        if int(self.bank.bankTotal) > 20:
+            self.win_game()
+        elif int(self.bank.bankTotal) > 0:
+            self.lose_game()
+        else:
+            self.run()
         
-    def start_day(self):
-        day.weather.get_weather()
-        day.weather.get_temperature()        
-        day.weather.get_forecast()                
-        self.bank.display_bankTotal()
-        self.inventory.display_inventory()         
-        self.purchase_items()        
-        day.recipe.get_recipe()        
-        day.set_price()    
+            
+    def win_game(self):
+        print("Congratulations: you've made a profit.")
+        print("You have $" + str(self.bank.bankTotal))
+        print("You've Win!")
+        input("Press enter to exit.")
+        
+    def lose_game(self):
+        print("Sadly, you failed to make a profit this week.")
+        print("You have $" + str(self.bank.bankTotal))
+        print("You've lost.")
+        input("Press enter to exit.")
+        
+    def run(self):
+        print("You've ended the week $" + str(abs(self.bank.bankTotal)) + " in debt!")
+        print("Your payday loan is due, and collections is knocking on the door.")
+        print("RUN!")
+        time.sleep(10)
+        
+    def begin_week(self):
+        print("Welcome to Lemonade Stand. You have 7 days to make a profit selling lemonade.")
+        print("You will begin with $20 dollars in your bank.")
+        print("You will be responsible for purchasing supplies.")
+        print("You will also be responsible for making the lemonade recipe and setting the price.")
+        print("Watch the Forecast! The weather will affect how many potential customers you have,")
+        print("as well as their chance of buying, which will also be based on your popularity,")
+        print("and that will be based on previous customers' satisfaction.")
+        print("customers' satisfaction will be based on your recipe.")
+        print("Good luck!")
+        input("press Enter to continue")
         
 
           

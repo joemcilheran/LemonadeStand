@@ -11,16 +11,13 @@ from Week import Week
 from decimal import *
 getcontext().prec = 4
 
-"""
-class PlayGame:
+class playgame():
 
     def __init__(self):
     
         self.week = Week()
-""" 
+       
         
 if __name__ == "__main__":
-    
-    week = Week()
-    
-    week.run_week()
+    playgame = playgame()
+    playgame.week.run_week()

@@ -25,9 +25,9 @@ class Customer:
         day.weather.get_weather_factor()
         day.weather.get_temperature_factor()
         if int(week.popularity) == 0:
-            impulse = ((Decimal(day.weather.weatherFactor) * Decimal(day.weather.temperatureFactor)) * Decimal(100)) - Decimal(day.price)
+            impulse = ((Decimal(day.weather.weatherFactor) * Decimal(day.weather.temperatureFactor)) * Decimal(100)) + 50 - Decimal(day.price)
         else:
-            impulse = ((Decimal(day.weather.weatherFactor) * Decimal(day.weather.temperatureFactor) * Decimal(week.popularity)) * Decimal(100)) - Decimal(day.price)
+            impulse = ((Decimal(day.weather.weatherFactor) * Decimal(day.weather.temperatureFactor) * Decimal(week.popularity)) * Decimal(100)) + 50 - Decimal(day.price)
        
         if impulse >= 75:
             self.chanceOfBuying = True

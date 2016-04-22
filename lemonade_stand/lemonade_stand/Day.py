@@ -71,4 +71,30 @@ class Day:
     def add_to_customerCounter(self):
         self.customerCounter = self.customerCounter + 1
         return self.customerCounter
+        
+    def end_day(self,week):
+        week.add_to_satisfiedCustomers(self)        
+        week.add_to_servedCustomers(self)        
+        week.find_popularity()
+        print("You served " + str(self.dailyServed) + " customers out of " + str(self.potentialCustomers) + " potential customers.")
+        print(str(self.dailySatisfied) + " of whom were satisfied.")
+        print("You now have $" + str(week.bank.bankTotal))
+        print("and your popularity is " + str(week.popularity * 100) + " percent") 
+        week.inventory.reset()
+        input("Press Enter to continue")
+        print("  ")
+        print("  ")        
+        print("  ")
+        print("  ")
+        
+    def start_day(self,week):
+        self.weather.get_weather()
+        self.weather.get_temperature()        
+        self.weather.get_forecast()                
+        week.bank.display_bankTotal()
+        week.inventory.display_inventory()         
+        week.purchase_items()        
+        self.recipe.get_recipe()        
+        self.set_price()
+        input("Press Enter to continue")        
             
