@@ -7,17 +7,20 @@ import Chance
 import Inventory
 import Bank
 import Recipe
-import Week
+from Week import Week
 from decimal import *
 getcontext().prec = 4
 
+"""
 class PlayGame:
 
     def __init__(self):
     
-        self.week = Week.Week()
-       
+        self.week = Week()
+""" 
         
 if __name__ == "__main__":
-    gamePlay = PlayGame()
-    gamePlay.week.run_week()
+    
+    week = Week()
+    
+    week.run_week()

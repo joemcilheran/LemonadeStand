@@ -13,74 +13,62 @@ class Day:
 
     def __init__(self):
     
-        weather = Weather.Weather()
-        recipe = Recipe.Recipe()
-        customerCounter = 0
-        dailyServed = 0
-        dailySatisfied = 0
-        price = self.set_price()
-        potentialCustomers = find_potential_customers(weather)
+        self.weather = Weather.Weather()
+        self.recipe = Recipe.Recipe()
+        self.customerCounter = 0
+        self.dailyServed = 0
+        self.dailySatisfied = 0
+        self.price = 0
+        self.potentialCustomers = 0
         
-    def run_day(self):     
-        week.display_day()
-        self.weather.get_forecast()        
-        bank.display_bankTotal()
-        player.inventory.display_inventory()         
-        week.player.purchase_items()        
-        self.recipe.get_recipe()        
-        self.set_price()                      
-        self.find_potential_customers()
-        print("counter " + str(customerCounter))
-        self.run_all_customers()
-        self.end_day()       
+    def run_day(self,week):                                  
+            self.find_potential_customers()
+            print("counter " + str(self.customerCounter))
+            self.run_all_customers(week,self)
+                    
             
         
         
     def set_price(self):
-        price = input("How much will you charge per cup of lemonade? \n")
-        return price
+        self.price = input("How much will you charge per cup of lemonade? \n")
+        return self.price
         
     
-    def find_potential_customers(self,weather):
-        self.weather.get_temperature_factor()
+    def find_potential_customers(self):
+        self.weather.get_temperatureVariation()
+        self.weather.get_temperatureDifferential()
         self.weather.get_weather_factor()
-        potentialCustomers = (Decimal(200 + (temperatuerVariation) - (temperatureDifferential)) * Decimal(weatherFactor))        
-        print(str(potentialCustomers) + "potentialCustomers")
-        return potentialCustomers
+        self.potentialCustomers = int(round(Decimal(200 + (self.weather.temperatureVariation) - (self.weather.temperatureDifferential)) * Decimal(self.weather.weatherFactor)))        
+        print(str(self.potentialCustomers) + "potentialCustomers")
+        return self.potentialCustomers
         
-    def run_all_customers(self):
-        while counter < potentialCustomers:            
+    def run_all_customers(self,week,recipe):
+        while self.customerCounter < self.potentialCustomers and week.inventory.sellOutIce == False and week.inventory.sellOutOtherItems == False:            
             self.add_to_customerCounter()
-            print("counter " + str(customerCounter))
-            customer = Customer.Customer()
-            customer.run_customer()
-        if inventory.sell_out_ice() == True:
+            print("counter " + str(self.customerCounter))
+            self.customer = Customer.Customer()
+            self.customer.run_customer(week,self)
+            week.inventory.sell_out_ice(self)
+            week.inventory.sell_out_other_items(self)
+        if week.inventory.sellOutIce == True:
             print("Sold Out!")
-        if inventory.sell_out_other_items == True:
+        if week.inventory.sellOutOtherItems == True:
             print("Sold Out!")
             
     def add_to_dailySatisfied(self,customer):
-        if customerSatisfaction == True:
-            dailySatisfied = dailySatisfied + 1
+        if self.customer.customerSatisfaction == True:
+            self.dailySatisfied = self.dailySatisfied + 1
         else:
-            dailySatisfied = dailySatisfied
-        return dailySatisfied
+            self.dailySatisfied = self.dailySatisfied
+        return self.dailySatisfied
         
     def add_to_dailyServed(self):
-        dailyServed = dailyServed + 1
-        return dailyServed
+        self.dailyServed = self.dailyServed + 1
+        return self.dailyServed
         
     
-    def end_day(self):
-        week.add_to_satisfiedCustomers(week,day,bank)        
-        week.add_to_servedCustomers(week,day)        
-        week.find_popularity(week,day)
-        print("You served " + str(dailyServed) + " customers out of " + str(potentialCustomers) + " potential customers.")
-        print(str(dailySatisfied) + " of whom were satisfied.")
-        print("You now have $" + str(bankTotal))
-        print("and your popularity is " + str(popularity * 100) + " percent") 
-
-    def add_to_customerCounter():
-        customerCounter = customerCounter + 1
-        return customerCounter
+    
+    def add_to_customerCounter(self):
+        self.customerCounter = self.customerCounter + 1
+        return self.customerCounter
             

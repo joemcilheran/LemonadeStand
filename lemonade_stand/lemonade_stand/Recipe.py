@@ -13,36 +13,36 @@ class Recipe:
 
     def __init__(self):
     
-        lemonsPerPitcher = self.add_lemons()
-        sugarPerPitcher = self.add_sugar()
-        icePerCup = self.add_ice()
-        lemonsPerCup = self.find_lemons_per_cup(lemonsPerPitcher)
-        sugarPerCup = self.find_sugar_per_cup(sugarPerPitcher)
+        self.lemonsPerPitcher = 0
+        self.sugarPerPitcher = 0
+        self.icePerCup = 0
+        self.lemonsPerCup = 0
+        self.sugarPerCup = 0
         
     
     def get_recipe(self):
-        recipe.add_lemons()
-        recipe.add_sugar()
-        recipe.add_ice()
-        recipe.find_lemons_per_cup()
-        recipe.find_sugar_per_cup()
+        self.add_lemons()
+        self.add_sugar()
+        self.add_ice()
+        self.find_lemons_per_cup()
+        self.find_sugar_per_cup()
     
     def add_lemons(self):
-        lemonsPerPitcher = input("How many lemons in each pitcher? \n")
-        return lemonsPerPitcher
+        self.lemonsPerPitcher = input("How many lemons in each pitcher? \n")
+        return self.lemonsPerPitcher
         
     def add_sugar(self):
-        sugarPerPitcher = input("How much sugar in each pitcher? \n")
-        return sugarPerPitcher
+        self.sugarPerPitcher = input("How much sugar in each pitcher? \n")
+        return self.sugarPerPitcher
         
     def add_ice(self):
-        icePerCup = input("How many ice cubes in each cup? \n")
-        return icePerCup
+        self.icePerCup = input("How many ice cubes in each cup? \n")
+        return self.icePerCup
         
-    def find_lemons_per_cup(self, lemonsPerPitcher):
-        lemonsPerCup = (Decimal(lemonsPerPitcher) / Decimal(10))
-        return lemonsPerCup
+    def find_lemons_per_cup(self):
+        self.lemonsPerCup = (Decimal(self.lemonsPerPitcher) / Decimal(10))
+        return self.lemonsPerCup
         
-    def find_sugar_per_cup(self, sugarPerPitcher):
-        sugarPerCup = (Decimal(sugarPerPitcher) / Decimal(10))
-        return sugarPerCup
+    def find_sugar_per_cup(self):
+        self.sugarPerCup = (Decimal(self.sugarPerPitcher) / Decimal(10))
+        return self.sugarPerCup

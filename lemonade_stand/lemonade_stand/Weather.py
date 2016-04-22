@@ -13,56 +13,58 @@ class Weather:
 
     def __init__(self):
         
-        weatherForecast = self.get_weather()
-        temperatureForecast = self.get_temperature()
-        weatherFactor = self.get_weather_factor(weatherForecast)
-        temperatureFactor = self.get_temperature_factor(temperatureForecast)
-        temperatureDifferential = self.get_temperatureDifferential(temperatureForecast)
-        temperatureVariation = self.get_temperatureVariation()
+        self.weatherForecast = 0
+        self.temperatureForecast = 0
+        self.weatherFactor = 0
+        self.temperatureFactor = 0
+        self.temperatureDifferential = 0
+        self.temperatureVariation = 0
     
     
     def get_weather(self):
         weatherList = ("Sunny", "Hazy", "Cloudy", "Rainy")
-        weatherForecast = random.choice(weatherList)
-        print(weatherForecast)
-        return weatherForecast
+        self.weatherForecast = random.choice(weatherList)
+        print("and " + self.weatherForecast)
+        return self.weatherForecast
         
     def get_temperature(self):
-        temperatureForecast = random.randint(50,100)
-        return temperatureForecast
+        self.temperatureForecast = random.randint(50,100)
+        print(str(self.temperatureForecast) + "degrees")
+        return self.temperatureForecast
        
         
-    def get_weather_factor(self,weatherForecast):               
-        if weatherForecast == "Sunny":
-            weatherFactor = 1.00 
-        elif weatherForecast == "Hazy":
-            weatherFactor =  0.75
-        elif weatherForecast == "Cloudy":
-            weatherFactor =  0.50
+    def get_weather_factor(self):               
+        if self.weatherForecast == "Sunny":
+            self.weatherFactor = 1.00 
+        elif self.weatherForecast == "Hazy":
+            self.weatherFactor =  0.75
+        elif self.weatherForecast == "Cloudy":
+            self.weatherFactor =  0.50
         else:
-            weatherFactor = 0.25
-        print("weatherFactor" + str(weatherFactor))
-        return weatherFactor
+            self.weatherFactor = 0.25
+        print("weatherFactor" + str(self.weatherFactor))
+        return self.weatherFactor
         
         
-    def get_temperature_factor(self,temperatureForecast):
-        temperatureFactor = Decimal(temperatureForecast) / Decimal(100)
-        return temperatureFactor
-        print("temperatureFactor" + str(temperatureFactor))
+    def get_temperature_factor(self):
+        self.temperatureFactor = Decimal(self.temperatureForecast) / Decimal(100)
+        print("temperatureFactor" + str(self.temperatureFactor))
+        return self.temperatureFactor
         
         
-    def get_forecast(self):
-        self.get_weather()
-        self.get_temperature()
-        print("Forecast: " + str(temperatureForecast) + " degrees and " + weatherForecast)
+        
+    def get_forecast(self):       
+        print("Forecast: " + str(self.temperatureForecast) + " degrees and " + self.weatherForecast)
+        
     
     def get_temperatureVariation(self):
-        temperatureVariation = random.randint(-10,10)
-        return temperatureVariation
-        print(str(temperatureVariation) + "variation")
+        self.temperatureVariation = random.randint(-10,10)        
+        print(str(self.temperatureVariation) + "variation")
+        return self.temperatureVariation
         
-    def get_temperatureDifferential(self, temperatureForecast):
-        temperatureDifferential = abs(temperatureForecast - 75)
-        return temperatureDifferential
-        print(str(temperatureDifferential) + "temperatureDifferential")
+    def get_temperatureDifferential(self):
+        self.temperatureDifferential = abs(self.temperatureForecast - 75)
+        print(str(self.temperatureDifferential) + "temperatureDifferential")
+        return self.temperatureDifferential
+        
  

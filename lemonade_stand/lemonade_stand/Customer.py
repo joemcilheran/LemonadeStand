@@ -14,123 +14,128 @@ class Customer:
 
     def __init__(self):
         
-        chanceOfBuying = self.find_chance_of_buying(weather,week,price,chance)
-        customerSatisfaction = self.find_customer_satisfaction()
-        tasteSatisfaction = self.find_taste_satisfaction(recipe,chance)
-        strenghthSatisfaction = self.find_strenghth_satisfaction(recipe,chance)
-        temperatureSatisfaction = self.find_temperature_satisfaction(weather,recipe,chance)
-        satisfactionSet = (tasteSatisfaction,strenghthSatisfaction,temperatureSatisfaction)
+        self.chance = Chance.Chance()
+        self.chanceOfBuying = 0
+        self.customerSatisfaction = 0
+        self.tasteSatisfaction = 0
+        self.strenghthSatisfaction = 0
+        self.temperatureSatisfaction = 0
     
-    def find_chance_of_buying(self,weather,week,price,chance):
-        if int(popularity) == 0:
-            impulse = ((Decimal(weatherFactor) * Decimal(temperatureFactor)) * Decimal(100)) - Decimal(price)
+    def find_chance_of_buying(self,week,day):
+        day.weather.get_weather_factor()
+        day.weather.get_temperature_factor()
+        if int(week.popularity) == 0:
+            impulse = ((Decimal(day.weather.weatherFactor) * Decimal(day.weather.temperatureFactor)) * Decimal(100)) - Decimal(day.price)
         else:
-            impulse = ((Decimal(weatherFactor) * Decimal(temperatureFactor) * Decimal(popularity)) * Decimal(100)) - Decimal(price)
+            impulse = ((Decimal(day.weather.weatherFactor) * Decimal(day.weather.temperatureFactor) * Decimal(week.popularity)) * Decimal(100)) - Decimal(day.price)
        
         if impulse >= 75:
-            chanceOfBuying = True
-            return chanceOfBuying
+            self.chanceOfBuying = True
+            return self.chanceOfBuying
         elif impulse < 75 and impulse > 35:
-            chanceOfBuying = chance.get_fifty_percent_chance()
-            return chanceOfBuying
+            self.chanceOfBuying = self.chance.get_fifty_percent_chance()
+            return self.chanceOfBuying
         elif impulse <36 and impulse > 5:
-            chanceOfBuying = chance.get_twenty_five_percent_chance()
-            return chanceOfBuying
+            self.chanceOfBuying = self.chance.get_twenty_five_percent_chance()
+            return self.chanceOfBuying
         else:
-            chanceOfBuying = False
-            return chanceOfBuying
+            self.chanceOfBuying = False
+            return self.chanceOfBuying
             
-    def find_customer_satisfaction(self):
-        self.find_taste_satisfaction(recipe,chance)
-        self.find_strength_satisfaction(recipe,chance)
-        self.find_temperature_satisfaction(weather,recipe,chance)       
+    def find_customer_satisfaction(self,day):
+        tastsat = self.find_taste_satisfaction(day)
+        strengthsat = self.find_strength_satisfaction(day)
+        tempsat = self.find_temperature_satisfaction(day)  
+        satisfactionSet = (tastsat,strengthsat,tempsat)        
         print(satisfactionSet)
         if satisfactionSet.count(True) > 1:
-            customerSatisfaction = True
-            return customerSatisfaction
+            self.customerSatisfaction = True
+            print(self.customerSatisfaction)
+            return self.customerSatisfaction
         else:
-            customerSatisfaction = False
-            return customerSatisfaction
+            self.customerSatisfaction = False
+            print(self.customerSatisfaction)
+            return self.customerSatisfaction
         
         
         
-    def find_taste_satisfaction(self,recipe,chance):
-        taste = abs(int(lemonsPerPitcher) - int(sugarPerPitcher))
+    def find_taste_satisfaction(self,day):
+        taste = abs(int(day.recipe.lemonsPerPitcher) - int(day.recipe.sugarPerPitcher))
         if taste == 0:
-            tasteSatisfaction = chance.get_seventy_five_percent_chance()
-            return tasteSatisfaction
+            self.tasteSatisfaction = self.chance.get_seventy_five_percent_chance()
+            return self.tasteSatisfaction
         elif taste == 1:
-            tasteSatisfaction = chance.get_fifty_percent_chance()
-            return tasteSatisfaction
+            self.tasteSatisfaction = self.chance.get_fifty_percent_chance()
+            return self.tasteSatisfaction
         elif taste == 2:
-            tasteSatisfaction = chance.get_twenty_five_percent_chance()
-            return tasteSatisfaction
+            self.tasteSatisfaction = self.chance.get_twenty_five_percent_chance()
+            return self.tasteSatisfaction
         else:
-            tasteSatisfaction = False
-            return tasteSatisfaction
+            self.tasteSatisfaction = False
+            return self.tasteSatisfaction
             
-    def find_strength_satisfaction(self,recipe,chance):
-        strenghth = (int(lemonsPerPitcher) + int(sugarPerPitcher))
+    def find_strength_satisfaction(self,day):
+        strenghth = (int(day.recipe.lemonsPerPitcher) + int(day.recipe.sugarPerPitcher))
         if strenghth == 8:
-            strenghthSatisfaction = chance.get_seventy_five_percent_chance()
-            return strenghthSatisfaction
+            self.strenghthSatisfaction = self.chance.get_seventy_five_percent_chance()
+            return self.strenghthSatisfaction
         elif strenghth == 9 or strenghth == 7:
-            strenghthSatisfaction = chance.get_fifty_percent_chance()
-            return strenghthSatisfaction
+            self.strenghthSatisfaction = self.chance.get_fifty_percent_chance()
+            return self.strenghthSatisfaction
         elif strenghth == 10 or strenghth == 6:
-            strenghthSatisfaction = chance.get_twenty_five_percent_chance()
-            return strenghthSatisfaction
+            self.strenghthSatisfaction = self.chance.get_twenty_five_percent_chance()
+            return self.strenghthSatisfaction
         else:
-            strenghthSatisfaction = False
-            return strenghthSatisfaction
+            self.strenghthSatisfaction = False
+            return self.strenghthSatisfaction
             
-    def find_temperature_satisfaction(self,weather,recipe,chance):
-        temperature = int(temperature)
-        icePerCup = int(icePerCup)
-        if temperature < 70:
-            if icePerCup < 2:
-                temperatureSatisfaction = chance.get_seventy_five_percent_chance()
-                return temperatureSatisfaction
-            elif icePerCup < 4:
-                temperatureSatisfaction = chance.get_fifty_percent_chance()
-                return temperatureSatisfaction
+    def find_temperature_satisfaction(self,day):
+        day.weather.temperatureForecast = int(day.weather.temperatureForecast)
+        day.recipe.icePerCup = int(day.recipe.icePerCup)
+        if day.weather.temperatureForecast < 70:
+            if day.recipe.icePerCup < 2:
+                self.temperatureSatisfaction = self.chance.get_seventy_five_percent_chance()
+                return self.temperatureSatisfaction
+            elif day.recipe.icePerCup < 4:
+                self.temperatureSatisfaction = self.chance.get_fifty_percent_chance()
+                return self.temperatureSatisfaction
             else:
-                temperatureSatisfaction = False
-                return temperatureSatisfaction
+                self.temperatureSatisfaction = False
+                return self.temperatureSatisfaction
                 
-        elif temperature >= 70 and temperature < 90:
-            if icePerCup < 2:
-               temperatureSatisfaction = chance.get_twenty_five_percent_chance()
-               return temperatureSatisfaction
-            elif icePerCup < 4:
-               temperatureSatisfaction = chance.get_seventy_five_percent_chance()
-               return temperatureSatisfaction
-            elif icePerCup == 4:
-               temperatureSatisfaction = chance.get_twenty_five_percent_chance()
-               return temperatureSatisfaction
+        elif day.weather.temperatureForecast >= 70 and day.weather.temperatureForecast < 90:
+            if day.recipe.icePerCup < 2:
+               self.temperatureSatisfaction = self.chance.get_twenty_five_percent_chance()
+               return self.temperatureSatisfaction
+            elif day.recipe.icePerCup < 4:
+               self.temperatureSatisfaction = self.chance.get_seventy_five_percent_chance()
+               return self.temperatureSatisfaction
+            elif day.recipe.icePerCup == 4:
+               self.temperatureSatisfaction = self.chance.get_twenty_five_percent_chance()
+               return self.temperatureSatisfaction
             else:
-               temperatureSatisfaction = False
-               return temperatureSatisfaction
+               self.temperatureSatisfaction = False
+               return self.temperatureSatisfaction
                
         else:
-            if icePerCup < 3:
-               temperatureSatisfaction = chance.get_twenty_five_percent_chance()
-               return temperatureSatisfaction
-            elif icePerCup == 3:
-               temperatureSatisfaction = chance.get_fifty_percent_chance()
-               return temperatureSatisfaction
+            if day.recipe.icePerCup < 3:
+               self.temperatureSatisfaction = self.chance.get_twenty_five_percent_chance()
+               return self.temperatureSatisfaction
+            elif day.recipe.icePerCup == 3:
+               self.temperatureSatisfaction = self.chance.get_fifty_percent_chance()
+               return self.temperatureSatisfaction
             else:
-               temperatureSatisfaction = False
-               return temperatureSatisfaction
+               self.temperatureSatisfaction = False
+               return self.temperatureSatisfaction
                
-    def run_customer(self):
-        customer.find_chance_of_buying(weather,week,price,chance)
-        print(chanceOfBuying)
-        while chanceOfBuying == True:                
-            bank.deposit(bank,day)
-            day.add_to_dailyServed(day)
-            inventory.adjust_inventory(inventory)
-            self.find_customer_satisfaction(recipe,weather,chance)
+    def run_customer(self, week,day):
+        self.find_chance_of_buying(week,day)
+        print(self.chanceOfBuying)
+        if self.chanceOfBuying == True:                
+            week.bank.deposit(day)
+            day.add_to_dailyServed()
+            week.inventory.adjust_inventory(day)
+            self.find_customer_satisfaction(day)
             day.add_to_dailySatisfied(day) 
         
         

@@ -12,19 +12,19 @@ class Bank:
 
     def __init__(self):
     
-        bankTotal = 20
+        self.bankTotal = 20
     
     
-    def withdraw(self,player):
-        bankTotal = (Decimal(bankTotal) - Decimal(cost))
-        print(bankTotal)
-        return bankTotal
+    def withdraw(self,week):
+        self.bankTotal = (Decimal(self.bankTotal) - Decimal(week.cost))
+        print(self.bankTotal)
+        return Decimal(self.bankTotal)
         
     def deposit(self,day):
-        bankTotal = (Decimal(banktotal) + Decimal(Decimal(price) / Decimal(100)))
-        print(bankTotal)
-        return bankTotal
+        self.bankTotal = (Decimal(self.bankTotal) + Decimal(Decimal(day.price) / Decimal(100)))
+        print(self.bankTotal)
+        return Decimal(self.bankTotal)
        
         
-    def display_bankTotal(bankTotal):
-        print("Bank total: $" + str(bankTotal))
+    def display_bankTotal(self):
+        print("Bank total: $" + str(Decimal(self.bankTotal)))
