@@ -47,14 +47,11 @@ class Customer:
         strengthsat = self.find_strength_satisfaction(day)
         tempsat = self.find_temperature_satisfaction(day)  
         satisfactionSet = (tastsat,strengthsat,tempsat)        
-        print(satisfactionSet)
         if satisfactionSet.count(True) > 1:
             self.customerSatisfaction = True
-            print(self.customerSatisfaction)
             return self.customerSatisfaction
         else:
             self.customerSatisfaction = False
-            print(self.customerSatisfaction)
             return self.customerSatisfaction
         
         
@@ -130,7 +127,6 @@ class Customer:
                
     def run_customer(self, week,day):
         self.find_chance_of_buying(week,day)
-        print(self.chanceOfBuying)
         if self.chanceOfBuying == True:                
             week.bank.deposit(day)
             day.add_to_dailyServed()

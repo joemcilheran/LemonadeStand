@@ -24,12 +24,10 @@ class Weather:
     def get_weather(self):
         weatherList = ("Sunny", "Hazy", "Cloudy", "Rainy")
         self.weatherForecast = random.choice(weatherList)
-        print("and " + self.weatherForecast)
         return self.weatherForecast
         
     def get_temperature(self):
         self.temperatureForecast = random.randint(50,100)
-        print(str(self.temperatureForecast) + "degrees")
         return self.temperatureForecast
        
         
@@ -42,13 +40,11 @@ class Weather:
             self.weatherFactor =  0.50
         else:
             self.weatherFactor = 0.25
-        print("weatherFactor" + str(self.weatherFactor))
         return self.weatherFactor
         
         
     def get_temperature_factor(self):
         self.temperatureFactor = Decimal(self.temperatureForecast) / Decimal(100)
-        print("temperatureFactor" + str(self.temperatureFactor))
         return self.temperatureFactor
         
         
@@ -59,12 +55,10 @@ class Weather:
     
     def get_temperatureVariation(self):
         self.temperatureVariation = random.randint(-10,10)        
-        print(str(self.temperatureVariation) + "variation")
         return self.temperatureVariation
         
     def get_temperatureDifferential(self):
         self.temperatureDifferential = abs(self.temperatureForecast - 75)
-        print(str(self.temperatureDifferential) + "temperatureDifferential")
         return self.temperatureDifferential
         
  

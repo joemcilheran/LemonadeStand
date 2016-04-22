@@ -17,12 +17,10 @@ class Bank:
     
     def withdraw(self,week):
         self.bankTotal = (Decimal(self.bankTotal) - Decimal(week.cost))
-        print(self.bankTotal)
         return Decimal(self.bankTotal)
         
     def deposit(self,day):
         self.bankTotal = (Decimal(self.bankTotal) + Decimal(Decimal(day.price) / Decimal(100)))
-        print(self.bankTotal)
         return Decimal(self.bankTotal)
        
         

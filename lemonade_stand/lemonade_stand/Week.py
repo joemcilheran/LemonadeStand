@@ -31,7 +31,6 @@ class Week:
             day = Day.Day()
             day.start_day(self)
             time.sleep(1)
-            #self.inventory.display_inventory()
             day.run_day(self)
             day.end_day(self)
         if self.dayCounter == 7:            
@@ -43,17 +42,14 @@ class Week:
             self.popularity = self.popularity
         else:
             self.popularity = Decimal(self.satisfiedCustomers) / Decimal(self.servedCustomers)
-        print(self.popularity)
         return self.popularity
         
     def add_to_servedCustomers(self,day):
         self.servedCustomers = (self.servedCustomers + day.dailyServed)
-        print(str(self.servedCustomers) + "servedCustomers")
         return self.servedCustomers
         
     def add_to_satisfiedCustomers(self,day):
         self.satisfiedCustomers = (self.satisfiedCustomers + day.dailySatisfied)
-        print(str(self.satisfiedCustomers) + "satisfiedCustomers")
         return self.satisfiedCustomers
         
     def add_to_dayCounter(self):
@@ -69,7 +65,6 @@ class Week:
         self.bank.withdraw(self)
         self.bank.display_bankTotal()
         self.inventory.get_cups(self)
-        print(self.cost)
         return self.cost
         
     def purchase_lemons(self):
@@ -78,7 +73,6 @@ class Week:
         self.bank.withdraw(self)
         self.bank.display_bankTotal()        
         self.inventory.get_lemons(self)
-        print(self.cost)
         return self.cost
         
     def purchase_sugar(self):
@@ -87,7 +81,6 @@ class Week:
         self.bank.withdraw(self)
         self.bank.display_bankTotal()        
         self.inventory.get_sugar(self)
-        print(self.cost)
         return self.cost
         
     def purchase_ice(self):
@@ -96,7 +89,6 @@ class Week:
         self.bank.withdraw(self)
         self.bank.display_bankTotal()        
         self.inventory.get_ice(self)
-        print(self.cost)
         return self.cost
         
     def purchase_items(self):

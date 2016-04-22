@@ -23,7 +23,6 @@ class Day:
         
     def run_day(self,week):                                  
             self.find_potential_customers()
-            print("counter " + str(self.customerCounter))
             self.run_all_customers(week,self)
                     
             
@@ -39,13 +38,11 @@ class Day:
         self.weather.get_temperatureDifferential()
         self.weather.get_weather_factor()
         self.potentialCustomers = int(round(Decimal(200 + (self.weather.temperatureVariation) - (self.weather.temperatureDifferential)) * Decimal(self.weather.weatherFactor)))        
-        print(str(self.potentialCustomers) + "potentialCustomers")
         return self.potentialCustomers
         
     def run_all_customers(self,week,recipe):
         while self.customerCounter < self.potentialCustomers and week.inventory.sellOutIce == False and week.inventory.sellOutOtherItems == False:            
             self.add_to_customerCounter()
-            print("counter " + str(self.customerCounter))
             self.customer = Customer.Customer()
             self.customer.run_customer(week,self)
             week.inventory.sell_out_ice(self)
